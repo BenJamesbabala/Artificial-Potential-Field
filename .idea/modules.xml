@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Artificial-Potential-Field.iml" filepath="$PROJECT_DIR$/.idea/Artificial-Potential-Field.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Hybrid-Artificial-Potential-Field-A-star-Planning/.idea/Hybrid-Artificial-Potential-Field-A-star-Planning.iml" filepath="$PROJECT_DIR$/../Hybrid-Artificial-Potential-Field-A-star-Planning/.idea/Hybrid-Artificial-Potential-Field-A-star-Planning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../A-star-planning/.idea/untitled.iml" filepath="$PROJECT_DIR$/../A-star-planning/.idea/untitled.iml" />
+    </modules>
+  </component>
+</project>

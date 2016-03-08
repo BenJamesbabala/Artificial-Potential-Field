@@ -236,10 +236,9 @@ def main():
         cv2.imwrite('count.bmp', arr1)
 
         sx = 30
-        sy = 50
-        dx = 30
-        dy = 200
-
+        sy = 200
+        dx = 46
+        dy = 170
         start = time.clock()
         sol = path_planning(arr, sx, sy, dx, dy)
         if len(sol) == 0:
