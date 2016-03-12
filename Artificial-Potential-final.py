@@ -196,7 +196,7 @@ def path_planning(arr, sx1, sy1, dx, dy):
             print 'out of boundaries' , sx, sy
             return sol
 
-        if sx < dx+ 10 and sx > dx - 10 and sy < dy+10 and sy > dy-10:
+        if sx < dx+ 5 and sx > dx - 5 and sy < dy+5 and sy > dy-5:
             break
 
         sol.append((sx, sy))
@@ -205,6 +205,7 @@ def path_planning(arr, sx1, sy1, dx, dy):
 
 count = 0
 def main():
+    counter = 1
     for im in images:
 
         img = cv2.imread(im)
@@ -235,8 +236,8 @@ def main():
 
         cv2.imwrite('count.bmp', arr1)
 
-        sx = 30
-        sy = 200
+        sx = 15
+        sy = 15
         dx = 46
         dy = 170
         start = time.clock()
@@ -251,6 +252,12 @@ def main():
         print 'time: ',  time.clock()-start
         arr[sx][sy] = (0, 255, 255)
         arr[dx][dy] = (0, 255, 255)
+
+        output = "output/"+`counter`
+        output += ".jpg"
+        cv2.imwrite(output, img)
+        counter += 1
+
 
         cv2.imshow('image', img)
         cv2.imshow('arr', arr)
