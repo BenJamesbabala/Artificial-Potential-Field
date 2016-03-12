@@ -236,18 +236,18 @@ def main():
 
         cv2.imwrite('count.bmp', arr1)
 
-        sx = 15
-        sy = 15
-        dx = 46
-        dy = 170
+        sx = 20
+        sy = 20
+        dx = 190
+        dy = 190
         start = time.clock()
         sol = path_planning(arr, sx, sy, dx, dy)
         if len(sol) == 0:
             print 'No solution exist '
             continue
         for i in sol:
-            arr[i[0], i[1]] = (255, 255, 0)
-            img[i[0], i[1]] = (255, 0, 255)
+            arr[i[0], i[1]] = (255, 255, 255)
+            img[i[0], i[1]] = (255, 255, 255)
 
         print 'time: ',  time.clock()-start
         arr[sx][sy] = (0, 255, 255)
