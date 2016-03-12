@@ -16,7 +16,7 @@ Repulsive Force =
 - 0, if D(q) >= Q*
 ```
 
-<b> Prequisites</b>
+<b> Prerequisites</b>
 - Python
 - OpenCV
 - Numpy
