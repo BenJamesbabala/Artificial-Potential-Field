@@ -257,8 +257,9 @@ def draw(theta, arr):
         y += int(2*math.cos(theta))
 
 
-count = 0
+
 def main():
+    count = 0
     for im in images:
 
         img = cv2.imread(im)
