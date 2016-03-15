@@ -213,7 +213,7 @@ def main():
         cimg = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         img2 = cv2.medianBlur(cimg,13)
 
-        ret,thresh1 = cv2.threshold(cimg,40,255,cv2.THRESH_BINARY)
+        ret,thresh1 = cv2.threshold(cimg,100,120,cv2.THRESH_BINARY)
         t2 = copy.copy(thresh1)
 
         x, y  = thresh1.shape
@@ -222,7 +222,7 @@ def main():
         image, contours, hierarchy = cv2.findContours(t2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         for i in range(len(contours)):
             cnt = contours[i]
-            if cv2.contourArea(cnt) > 300 and cv2.contourArea(cnt) < 5000 :
+            if cv2.contourArea(cnt) > 1000 and cv2.contourArea(cnt) < 15000 :
                 cv2.drawContours(img, [cnt],-1, [0, 255, 255])
                 cv2.fillConvexPoly(arr, cnt, [255, 255, 255])
                 final_contours.append(cnt)
@@ -236,10 +236,10 @@ def main():
 
         cv2.imwrite('count.bmp', arr1)
 
-        sx = 20
-        sy = 20
-        dx = 190
-        dy = 190
+        sx = 30
+        sy = 30
+        dx = 500
+        dy = 1000
         start = time.clock()
         sol = path_planning(arr, sx, sy, dx, dy)
         if len(sol) == 0:
