@@ -245,11 +245,13 @@ def main():
         if len(sol) == 0:
             print 'No solution exist '
             continue
-        for i in sol:
-            arr[i[0], i[1]] = (255, 255, 255)
-            img[i[0], i[1]] = (255, 255, 255)
+        for i in range(len(sol)):
+            start = (sol[i][1], sol[i][0])
+            cv2.circle(arr,start, 1, [255, 255, 255])
+            cv2.circle(img, start, 1, [255, 255, 255])
 
-        print 'time: ',  time.clock()-start
+        #print 'time: ',  time.clock()-start
+
         arr[sx][sy] = (0, 255, 255)
         arr[dx][dy] = (0, 255, 255)
 
