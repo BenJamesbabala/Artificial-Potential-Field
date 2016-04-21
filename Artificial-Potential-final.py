@@ -7,8 +7,8 @@ import time
 from time import sleep
 import Queue as Q
 
-
 images = glob.glob('*.jpg')
+
 def check_boundaries(ex, ey, nx, ny): #ex, ey :- end points of frame
     if nx > -1 and ny > -1 and nx < ex and ny < ey:
         return True
@@ -54,8 +54,6 @@ def dist(sx, sy, x, y, theta, arr, q_star):  #distance of obstacle in direction 
         count += 1
 
     return (ansx-sx,ansy- sy)
-
-
 
 def obstacle_force(arr, sx, sy, q_star): #sx,sy :- source    dx, dy:- destination    q-star:- threshold distance of obstacles
     forcex = 0
