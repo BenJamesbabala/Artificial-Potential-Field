@@ -58,7 +58,7 @@ def dist(sx, sy, x, y, theta, arr, q_star):  #distance of obstacle in direction 
 def obstacle_force(arr, sx, sy, q_star): #sx,sy :- source    dx, dy:- destination    q-star:- threshold distance of obstacles
     forcex = 0
     forcey = 0
-    neta = 30000
+    neta = 300000000
     x, y , z= arr.shape
     for i in range(8):
         (ox,oy) = dist(sx, sy, x, y, i*math.pi/4, arr, q_star)
@@ -75,6 +75,7 @@ def obstacle_force(arr, sx, sy, q_star): #sx,sy :- source    dx, dy:- destinatio
         else:
             if d == 0:
                 d = 1
+
             f = (neta*(1.0/q_star- 1.0/d))/(d*d)
             fx = f*math.sin(theta)
             fy = f*math.cos(theta)
@@ -87,7 +88,7 @@ def obstacle_force(arr, sx, sy, q_star): #sx,sy :- source    dx, dy:- destinatio
 def goal_force(arr, sx, sy, dx, dy, d_star): # sx, sy :- source  dx, dy:- destination   d_star:- threshold distance from goal
     forcex = 0
     forcey = 0
-    tau = 1  #constant
+    tau = 20  #constant
     printx('10')
     d = math.sqrt((dx-sx)*(dx-sx) + (dy-sy)*(dy-sy))
     if d > d_star:
@@ -114,15 +115,15 @@ def path_planning(arr, sx1, sy1, dx, dy):
 
     #Parameters Declaration
 
-    flx = 10000  #maximum total force in x
-    fly = 10000  #maximum total force in y
-    v = 4 #velocity magnitude
+    flx = 100000  #maximum total force in x
+    fly = 100000  #maximum total force in y
+    v = 10 #velocity magnitude
     t = 1 #time lapse
     theta = 0 #initial angle
     x,y,z = arr.shape
     theta_const = math.pi*30/180  #maximum allowed turn angle
-    q_star = 50000
-    d_star = 20000
+    q_star = 1000
+    d_star = 8000
 
     if arr[sx1][sy1][0] == 255 or arr[dx][dy][0] == 255:
         return []
@@ -150,6 +151,7 @@ def path_planning(arr, sx1, sy1, dx, dy):
         #count += 1
         (fx, fy) = obstacle_force(arr, sx, sy, q_star)
         (gx, gy) = goal_force(arr, sx, sy, dx, dy, d_star)
+        print 'fx ', fx, ' fy ', fy, ' gx ', gx, ' gy ', gy
 
         tx = gx+fx
         ty = gy+fy
@@ -161,13 +163,17 @@ def path_planning(arr, sx1, sy1, dx, dy):
             ty = max(ty, -fly)
         else:
             ty = min(ty, fly)
-        theta1 = math.atan2(tx, ty)
 
+        print 'tx ', tx, ' ty ', ty
+        theta1 = math.atan2(tx, ty)
+        cv2.circle(arr, (sy, sx), 3, (255, 0, 0), 3)
         if arr[sx][sy][0] == 255:
             print gx, gy, fx, fy
             print 'tx ', tx, ' ty ', ty, 'sx ', sx, ' sy ', sy
             print theta1*180/math.pi, theta*180/math.pi
-            sleep(10)
+            cv2.circle(arr, (sy, sx ), 3, (255, 0, 0), 3)
+            cv2.imshow('arr', arr)
+            cv2.waitKey(0)
 
         P = v
         angle = theta1-theta  #angle between velocity and force vector
@@ -204,63 +210,70 @@ def path_planning(arr, sx1, sy1, dx, dy):
 count = 0
 def main():
     counter = 1
-    for im in images:
+    #for im in images:
 
-        img = cv2.imread(im)
+    img = cv2.imread('sample.jpg')
 
-        cimg = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-        img2 = cv2.medianBlur(cimg,13)
+    cimg = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    img2 = cv2.medianBlur(cimg,13)
 
-        ret,thresh1 = cv2.threshold(cimg,100,120,cv2.THRESH_BINARY)
-        t2 = copy.copy(thresh1)
+    ret,thresh1 = cv2.threshold(cimg,100,120,cv2.THRESH_BINARY)
+    t2 = copy.copy(thresh1)
 
-        x, y  = thresh1.shape
-        arr = np.zeros((x, y, 3), np.uint8)
-        final_contours= []
-        image, contours, hierarchy = cv2.findContours(t2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
-        for i in range(len(contours)):
-            cnt = contours[i]
-            if cv2.contourArea(cnt) > 1000 and cv2.contourArea(cnt) < 15000 :
-                cv2.drawContours(img, [cnt],-1, [0, 255, 255])
-                cv2.fillConvexPoly(arr, cnt, [255, 255, 255])
-                final_contours.append(cnt)
-        arr1 = np.zeros((x, y, 3), np.uint8)
-        for i in range(x):
-            for j in range(y):
-                if arr[i][j][0] ==255:
-                    arr1[i][j] = [0, 0, 0]
-                else:
-                    arr1[i][j] = [255, 255, 255]
+    x, y  = thresh1.shape
+    print 'x ', x , ' y ', y
+    arr = np.zeros((x, y, 3), np.uint8)
+    final_contours= []
+    image, contours, hierarchy = cv2.findContours(t2,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    for i in range(len(contours)):
+        cnt = contours[i]
+        if cv2.contourArea(cnt) > 4000 and cv2.contourArea(cnt) < 15000 :
+            cv2.drawContours(img, [cnt],-1, [0, 255, 255])
+            cv2.fillConvexPoly(arr, cnt, [255, 255, 255])
+            final_contours.append(cnt)
+    arr1 = np.zeros((x, y, 3), np.uint8)
+    for i in range(x):
+        for j in range(y):
+            if arr[i][j][0] ==255:
+                arr1[i][j] = [0, 0, 0]
+            else:
+                arr1[i][j] = [255, 255, 255]
+    #cv2.imshow('arr1', arr1)
 
-        cv2.imwrite('count.bmp', arr1)
+    cv2.imwrite('count.bmp', arr1)
 
-        sx = 30
-        sy = 30
-        dx = 500
-        dy = 1000
-        start = time.clock()
-        sol = path_planning(arr, sx, sy, dx, dy)
-        if len(sol) == 0:
-            print 'No solution exist '
-            continue
-        for i in range(len(sol)):
-            start = (sol[i][1], sol[i][0])
-            cv2.circle(arr,start, 1, [255, 255, 255])
-            cv2.circle(img, start, 1, [255, 255, 255])
+    sx = 400
+    sy = 300
+    dx = 60
+    dy = 300
+    start = time.clock()
+    cv2.circle(arr1, (sy, sx), 2, (255, 0, 0))
+    cv2.circle(arr1, (dy, dx), 2, (255, 0, 0))
+    cv2.imshow('arr', arr1)
+    k = cv2.waitKey(0)
+    cv2.destroyWindow('arr')
+    sol = path_planning(arr, sx, sy, dx, dy)
+    if len(sol) == 0:
+        print 'No solution exist '
+        #continue
+    for i in range(len(sol)):
+        start = (sol[i][1], sol[i][0])
+        cv2.circle(arr,start, 1, [255, 255, 255])
+        cv2.circle(img, start, 1, [255, 255, 255])
 
-        #print 'time: ',  time.clock()-start
+    #print 'time: ',  time.clock()-start
 
-        arr[sx][sy] = (0, 255, 255)
-        arr[dx][dy] = (0, 255, 255)
+    arr[sx][sy] = (0, 255, 255)
+    arr[dx][dy] = (0, 255, 255)
 
-        output = "output/"+`counter`
-        output += ".jpg"
-        cv2.imwrite(output, img)
-        counter += 1
+    output = "output/"+`counter`
+    output += ".jpg"
+    cv2.imwrite(output, img)
+    counter += 1
 
 
-        cv2.imshow('image', img)
-        cv2.imshow('arr', arr)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+    cv2.imshow('image', img)
+    cv2.imshow('arr', arr)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 main()
