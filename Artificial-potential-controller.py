@@ -127,7 +127,7 @@ def path_planning(arr, sx1, sy1, dx, dy, theta):
 
     flx = 10000  #maximum total force in x
     fly = 10000  #maximum total force in y
-    v = 25 #velocity magnitude
+    v = 5 #velocity magnitude
     t = 1 #time lapse
     x,y,z = arr.shape
     theta_const = math.pi*45/180  #maximum allowed turn angle
@@ -344,7 +344,7 @@ count = 0
 def main():
     counter = 1
 
-    im = cv2.imread('2.jpg')
+    im = cv2.imread('sample1.jpg')
     input_image = copy.copy(im)
     (x, y, z) = im.shape
     print x, y, z
@@ -355,8 +355,8 @@ def main():
     k = cv2.waitKey(0)
     dx, dy = 50, 50
     sx1, sy1 = 500, 1000
-    #(dy, dx) = find_goal(im)
-    #(sy1, sx1) = find_robot(im)
+    (dy, dx) = find_goal(im)
+    (sy1, sx1) = find_robot(im)
     (sx2, sy2) = (sx1, sy1)
     print 'sx1, sy1 : ', sx1, sy1
     cv2.circle(img1, (sy1, sx1), 1, (255, 0 , 0))
@@ -375,7 +375,7 @@ def main():
         po.append([sx2, sy2])
         direction = getAngle(po, im)
         if count == 0:
-            direction = math.pi
+            direction = 0
         count = count + 1
         d1 = direction
         print sx2, sy2, direction, 'attr'
