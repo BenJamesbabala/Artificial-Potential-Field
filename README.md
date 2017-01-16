@@ -3,8 +3,8 @@
 
 For basics and working of Potential Field Motion Planning one can refer to http://www.cs.cmu.edu/~motionplanning/lecture/Chap4-Potential-Field_howie.pdf
 
-This is basic implementation of potential field motion planning. Here we condsider our bot as positive charge, and goal as negatively charged body and all obstacles as positively charge bodies. 
-This way goal will attract bot but obstacles will repel it from itself. Hence bot will reach to goal avoiding obstacles.
+This is basic implementation of potential field motion planning. Here we condsider our bot as positively charged body and goal as a negatively charged body and all obstacles as positively charge bodies. 
+This way goal will attracts bot but obstacles will repel it from itself. Hence bot will reach to goal avoiding obstacles in these different potential fields.
 
 ```
 Attractive force = 
