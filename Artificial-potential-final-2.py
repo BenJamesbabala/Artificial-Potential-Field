@@ -172,7 +172,7 @@ def path_planning(arr, sx1, sy1, dx, dy):
             print 'tx ', tx, ' ty ', ty, 'sx ', sx, ' sy ', sy
             print theta1*180/math.pi, theta*180/math.pi
             cv2.circle(arr1, (sy, sx), 3, (255, 0, 0), 4)
-            cv2.imshow('arr1', arr1)
+            cv2.imshow('arr12', arr1)
             k = cv2.waitKey(0)
 
         P = v
@@ -237,7 +237,7 @@ def main():
                 arr1[i][j] = [0, 0, 0]
             else:
                 arr1[i][j] = [255, 255, 255]
-    cv2.imshow('arr1', arr1)
+    cv2.imshow('arr12', arr1)
     k = cv2.waitKey(0)
     cv2.destroyWindow('arr1')
 
@@ -246,7 +246,7 @@ def main():
     sx = 400
     sy = 300
     dx = 60
-    dy = 300
+    dy = 500
     start = time.clock()
     sol = path_planning(arr, sx, sy, dx, dy)
     if len(sol) == 0:
