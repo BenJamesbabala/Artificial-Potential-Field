@@ -27,23 +27,16 @@ It will take all images in root folder as input images.
 
 Sample Input Images:
 
-![alt text][logo1]
-[logo1]: 1.jpg "Sample Image"
+![Alt text](1.jpg?raw=true "Sample Image")
 
-![alt text][logo2]
-[logo2]: 2.jpg "Sample Image"
+![Alt text](2.jpg?raw=true "Sample Image")
 
-![alt text][logo3]
-[logo3]: 3.jpg "Sample Image"
+![Alt text](3.jpg?raw=true "Sample Image")
 
 Output Images:
 
-![alt text][logo4]
-[logo4]: output/1.jpg "Sample Image"
+![Alt text](output/1.jpg?raw=true "Sample Image")
 
-![alt text][logo5]
-[logo5]: output/2.jpg "Sample Image"
+![Alt text](output/2.jpg?raw=true "Sample Image")
 
-![alt text][logo6]
-[logo6]: output/3.jpg "Sample Image"
-
+![Alt text](output/3.jpg?raw=true "Sample Image")
