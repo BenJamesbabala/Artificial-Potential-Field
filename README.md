@@ -31,12 +31,9 @@ Sample Input Images:
 
 ![Alt text](2.jpg?raw=true "Sample Image")
 
-![Alt text](3.jpg?raw=true "Sample Image")
-
 Output Images:
 
 ![Alt text](output/1.jpg?raw=true "Sample Image")
 
 ![Alt text](output/2.jpg?raw=true "Sample Image")
 
-![Alt text](output/3.jpg?raw=true "Sample Image")
